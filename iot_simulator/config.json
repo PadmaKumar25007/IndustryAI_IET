@@ -1,0 +1,8 @@
+{
+    "backend_url": "http://localhost:8000/api/telemetry/ingest",
+    "simulation_interval_seconds": 5,
+    "machines": [
+        {"id": "machine_001", "type": "CNC", "baseline_temp": 45.0, "baseline_vibration": 2.5},
+        {"id": "machine_002", "type": "Lathe", "baseline_temp": 50.0, "baseline_vibration": 3.0}
+    ]
+}
