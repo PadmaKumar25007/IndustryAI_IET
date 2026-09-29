@@ -34,8 +34,11 @@ class Machine(Base):
 
     tasks = relationship("Task", back_populates="machine")
     production_runs = relationship("ProductionRun", back_populates="machine")
-    telemetry = relationship("MachineTelemetry", back_populates="machine")
-    maintenance = relationship("Maintenance", back_populates="machine")
+    # ORM cascades mirror the DB's ON DELETE CASCADE on these NOT NULL FKs.
+    # Without them, db.delete(machine) nullifies child FKs first and violates
+    # the NOT NULL constraint on machine_telemetry.machine_id.
+    telemetry = relationship("MachineTelemetry", back_populates="machine", cascade="all, delete-orphan")
+    maintenance = relationship("Maintenance", back_populates="machine", cascade="all, delete-orphan")
     incidents = relationship("Incident", back_populates="machine")
     factory_memory = relationship("FactoryMemory", back_populates="machine")
 
